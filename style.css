@@ -2,15 +2,64 @@ html, body {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    width: 100%;
+    width: 100vw;
     height: 100%;
     background-color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+
 }
 
-#canvas {
-    background: #000000;
+.container {
+    width: 100%;
+    height: 100vh;
+    background-image: url("./images/background.jpg");
+    background-size: cover;
+}
+
+h1 {
+    text-align: center;
+}
+
+.chicken {
+    z-index: 1;
+    background-image: url("./images/chicken.png");
+    background-size: cover;
+    width: 10em;
+    height: 10em;
+    position: relative;
+    top: 550px;
+    left: 700px;
+    animation: mymove 7s ease-in-out;
+}
+
+.exp {
+    visibility: hidden;
+    position: absolute;
+    top: 200px;
+    left: 500px;
+    width: 600px;
+    height: 600px;
+    animation: explosion 7s ease-in-out
+}
+
+@keyframes mymove {
+    from {left: 1700px;}
+    10% {transform: rotate(20deg)}
+    25% {transform: rotate(-20deg)}
+    40% {transform: rotate(20deg)}
+    55% {transform: rotate(-20deg)}
+    60% {transform: rotate(20deg)}
+    75% {transform: rotate(-20deg)}
+    90% {transform: rotate(20deg)}
+    100% {left: 600px; }
+    
+    
+}
+
+@keyframes explosion {
+    from {visibility: hidden;}
+    to {visibility: visible}
 }

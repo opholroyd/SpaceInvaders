@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Farm War</title>
+    <link rel="stylesheet" href="first.css">
+</head>
+<body>
+    <!-- <audio src="chicken-wars.mp3"></audio> -->
+    <section class="star-wars">
+        <div class="crawl">
+            <h1>FARM WARS</h1>
+            <h3>REVENGE OF THE COWS</h3>
+            <p>After years of being tortured by humans, the Chickens realised their numbers and destroyed the human race.</p>
+            <p>Once the humans were gone they decided to send all other farm animals into space.</p>
+            <p>The other farm animals were not happy, they have now evolved and have come back to earth for REVENGE!</p><p>Who will survive......</p>
+
+
+            <p>Press space to begin the game...  Good Cluck</p>
+            <!-- <p>Years after the onset of the Animal Wars, the noble Cow Knights lead a massive clone army into a galaxy-wide battle against the Separatists. </p>
+            <p>When the sinister Sith unveil a thousand-year-old plot to rule the galaxy, the Republic crumbles and from its ashes rises the evil Chicken Empire.</p> -->
+        </div>
+    </section>
+
+    <script>
+        let audio = new Audio 
+        audio.src = "chicken-wars.mp3"
+
+        window.onload = audio.play(); 
+
+        window.addEventListener("keypress", (e) => {
+            if(e.keyCode == 32) {
+                window.location.href="game.html"
+            }
+        })
+        </script>
+
+   </body>
+</html>
