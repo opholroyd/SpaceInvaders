@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,20 +8,22 @@
     <title>Space Invaders</title>
     <link rel="stylesheet" text="text/css" href="style.css">
 </head>
+
 <body>
     <div class="container">
-        <h1>FARM INVADERS</h1>
+        <h1>FARM WARS</h1>
         <h1>Press Spacebar to begin</h1>
-        <img class="chicken">
+        <div class="chicken"></div>
         <img src="./images/explosion.gif_c200" class="exp">
     </div>
 
     <script>
-    window.addEventListener("keypress", (e) => {
-        if(e.keyCode == 32) {
-            window.location.href="firstpage.html"
-        }
-    })
+        window.addEventListener("keypress", (e) => {
+            if (e.keyCode == 32) {
+                window.location.href = "firstpage.html"
+            }
+        })
     </script>
 </body>
+
 </html>

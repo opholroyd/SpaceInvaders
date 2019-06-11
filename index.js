@@ -12,7 +12,7 @@ var rightPressed = false;
 var leftPressed = false;
 var spacePressed = false;
 var brickRowCount = 8;
-var brickColumnCount = 3;
+var brickColumnCount = 1;
 var brickWidth = 40;
 var brickHeight = 40;
 var brickPadding = 20;
@@ -21,6 +21,7 @@ var brickOffsetLeft = 30;
 var score = 0;
 var z = 2;
 var dz = 0.5;
+var bz = 0;
 var time = 0;
 var bricksLeft = 0;
 var cow = new Image();
@@ -39,7 +40,12 @@ var bricks = [];
 for (var c = 0; c < brickColumnCount; c++) {
   bricks[c] = [];
   for (var r = 0; r < brickRowCount; r++) {
-    bricks[c][r] = { x: 0, y: 0, status: 1, id: 0 };
+    bricks[c][r] = {
+      x: 0,
+      y: 0,
+      status: 1,
+      id: 0
+    };
   }
 }
 
@@ -65,8 +71,9 @@ function keyUpHandler(e) {
     spacePressed = false;
   }
 }
+
 function collisionDetection() {
-  balls.forEach(function(e) {
+  balls.forEach(function (e) {
     for (var c = 0; c < brickColumnCount; c++) {
       for (var r = 0; r < brickRowCount; r++) {
         var b = bricks[c][r];
@@ -77,10 +84,12 @@ function collisionDetection() {
             e.y > b.y &&
             e.y < b.y + brickHeight
           ) {
+            dz *= 1.35;
             b.status = 0;
             e.status = 0;
             score++;
             if (score == brickRowCount * brickColumnCount) {
+              ``
               alert("YOU WIN, CONGRATS!");
               document.location.reload();
               clearInterval(interval); // Needed for Chrome to end game
@@ -105,12 +114,13 @@ function drawPaddle() {
   ctx.fill();
   ctx.closePath();
 }
+
 function drawBricks() {
   for (var c = 0; c < brickColumnCount; c++) {
     for (var r = 0; r < brickRowCount; r++) {
       if (bricks[c][r].status == 1) {
         var brickX = r * (brickWidth + brickPadding) + brickOffsetLeft + z;
-        var brickY = c * (brickHeight + brickPadding) + brickOffsetTop;
+        var brickY = c * (brickHeight + brickPadding) + brickOffsetTop + bz;
         var brickId = r;
 
         bricks[c][r].x = brickX;
@@ -119,15 +129,23 @@ function drawBricks() {
 
         z += dz;
 
-        if (bricksLeft < 5) {
-        }
 
         if (bricks[c][r].x + dz > canvas.width - brickWidth) {
           dz = -dz;
+          bz += 30;
         }
 
         if (bricks[c][r].x + dz < 0) {
           dz = -dz;
+          bz += 30;
+        }
+
+
+        if (bz >= 600) {
+
+          alert("YOU LOSE, All Chickens will be crushed");
+          document.location.reload();
+          clearInterval(interval); // Needed for Chrome to end game
         }
 
         ctx.beginPath();
@@ -139,6 +157,7 @@ function drawBricks() {
     }
   }
 }
+
 function drawScore() {
   ctx.font = "16px Arial";
   ctx.fillStyle = "#0095DD";
@@ -156,7 +175,7 @@ function drawBalls(ballsY, paddleXPosition) {
 function createBall() {
   let ball = {
     x: paddleX + 35,
-    y: canvas.height-60,
+    y: canvas.height - 60,
     status: 1
   };
   balls.unshift(ball);
@@ -167,8 +186,7 @@ function draw() {
   drawBricks();
   drawPaddle();
 
-  if (y + dy < ballRadius) {
-  } else if (y + dy > canvas.height - ballRadius) {
+  if (y + dy < ballRadius) {} else if (y + dy > canvas.height - ballRadius) {
     if (x > paddleX && x < paddleX + paddleWidth) {
       dy = -dy;
     }
@@ -178,7 +196,7 @@ function draw() {
     createBall();
     time = 0;
   }
-  balls.forEach(function(e) {
+  balls.forEach(function (e) {
     drawBalls(e.y, e.x);
   });
 
@@ -188,21 +206,28 @@ function draw() {
     paddleX -= 7;
   }
 
-  balls.forEach(function(e) {
+  balls.forEach(function (e) {
     e.y -= 5;
   });
 
   collisionDetection();
 
-  if (balls[0].status === 0) {
-    balls[0] = {};
-  }
+  balls.forEach(function (e) {
+    if (e.status === 0) {
+      e.y = undefined;
+      e.x = undefined;
+    }
+  })
+
+
 
   bricksLeft = bricks.length;
 
   x += dx;
   y += dy;
   time += 1;
+
+
 }
 
 var interval = setInterval(draw, 10);
